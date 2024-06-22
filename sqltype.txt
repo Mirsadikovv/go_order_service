@@ -1,0 +1,44 @@
+
+4. OrderService
+    - orders
+        id uuid
+        external_id varchar // num-000001
+        type enum[self_pickup,delivery]
+        customer_phone varchar(20)
+        customer_name varchar(20)
+        customer_id uuid
+        payment_type enum[uzum, cash, terminal]
+        status enum[waiting_for_payment, collecting, delivery, waiting_on_branch, finished, cancelled]
+        to_address varchar
+        to_location polygon
+        discount_amount float//skidka 20k
+        amount float /all 100k  80k
+        delivery_price float
+        paid boolean false
+        courier_id uuid
+        courier_phone string
+        courier_name string
+        created_at default
+        updated_at default
+        deleted_at integer default 0
+    ! constraint phone_deleted_at unique, gmail_deleted_at unique
+
+    - order_products 
+        id uuid
+        product_id uuid
+        count integer
+        discount_price float //for each
+        price float // for each
+        order_id uuid foreign key
+        created_at default
+        updated_at default
+        deleted_at integer default 0
+
+    - order_status_notes
+        id uuid
+        order_id uuid foreign key
+        status enum[waiting_for_payment, collecting, delivery, waiting_on_branch, finished, cancelled]
+        user_id uuid
+        reason varchar(100)
+        created_at default
+        // create, getAll
